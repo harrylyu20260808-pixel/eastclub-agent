@@ -2,8 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange)](#deploy)
-[![Version](https://img.shields.io/badge/version-v1.4.2-8A2BE2)](#changelog)
+[![Version](https://img.shields.io/badge/version-v1.6.2-8A2BE2)](#changelog)
 [![Free](https://img.shields.io/badge/powered%20by-GLM%20%2B%20Gemini%20%28free%29-green)](#ai-models)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/harrylyu20260808-pixel/eastclub-agent)
 
 > **A single-file AI companion that runs entirely on Cloudflare Workers — zero build, zero server, deploy in minutes.**
 
@@ -15,7 +16,7 @@ EastClub Agent is a self-contained Web application packed into **one `worker.js`
 
 - 🔐 **Password-gated access** — visitors unlock the app with a password before anything loads.
 - 🎭 **Persona-driven agent (CDY)** — the model name is presented as *"a rational CDY (powered by …)"*, giving each model a distinct personality.
-- 🧠 **Persistent memory + Dreaming** — every conversation is distilled into agent memories; a nightly cron ("Dreaming mode") organizes them into a growing memory document, so CDY's personality keeps maturing (OpenClaw-style).
+- 🧠 **Persistent memory + Dreaming** — every conversation is distilled into agent memories; a nightly cron ("Dreaming mode") organizes them into a growing memory document, so CDY's personality keeps maturing.
 - 🖼️ **Image generation** — free **Pollinations.ai** drawing, saved to your gallery, conversation and memories.
 - 📚 **LaTeX math rendering** — inline `$x^2+1$` and display `$$\frac{a}{b}=\frac{c}{d}$$` rendered with **KaTeX**.
 - 👥 **Community** — 1–56 numbered accounts with signup/login, hashed passwords, daily check-ins, CDY-coin economy, a leaderboard, a **chatroom** and a **poll station**, all managed from one admin panel.
@@ -23,6 +24,7 @@ EastClub Agent is a self-contained Web application packed into **one `worker.js`
 - 🎨 **Multiple themes** — Skylake, Matrix, Midnight, Sakura, Paper + liquid-glass visuals, dynamic light effects and mobile-first UI.
 - 🌐 **Bilingual** — Chinese / English toggle.
 - 🔎 **Free web search** — DuckDuckGo (no paid grounding).
+- 🔄 **Optional bindings** — D1 / R2 / Durable Objects for high-concurrency community storage, with automatic KV fallback when not configured.
 - 🥚 **Easter eggs & hidden commands** — Matrix intro, Konami code, hidden `/commands`, logo-tap surprises and more.
 
 ### AI Models (all free tiers)
@@ -37,6 +39,16 @@ No paid models, no paid tools.
 ---
 
 ## 🚀 Deploy to Cloudflare Workers
+
+<a name="deploy"></a>
+
+### ☁️ One-click deploy
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/harrylyu20260808-pixel/eastclub-agent)
+
+> The one-click button routes through [deploy.workers.cloudflare.com](https://deploy.workers.cloudflare.com). For a fully automatic deploy, the repo needs a `wrangler.toml` (defining the `ZG_KV` binding, Durable Object and cron trigger). Without it, use the manual steps below — they always work.
+
+### 🛠️ Manual deploy
 
 1. **Get the code** — clone this repo, or grab `worker.js` directly.
 2. **Create a Worker** in the Cloudflare Dashboard → Workers & Pages → *Create* → *Upload* → paste `worker.js` content → **Save and Deploy**.
@@ -58,7 +70,10 @@ No paid models, no paid tools.
 
 | Secret / Binding | Purpose | Required |
 |------------------|---------|----------|
-| KV binding `ZG_KV` | Sessions, memory, gallery, accounts, chatroom, polls | ✅ |
+| KV binding `ZG_KV` | Sessions, memory, gallery, accounts, chatroom, polls | ✅ (fallback layer) |
+| Durable Object `ChatRoomDO` | Real-time group chat & online members | optional (auto-fallback to KV) |
+| D1 `DB` | Accounts, polls, forum, announcements, coins | optional (auto-fallback to KV) |
+| R2 `IMGS` | Uploaded images & drawings | optional (auto-fallback to KV) |
 | `ZHIPU_API_KEY` | GLM model access | one of the two keys |
 | `GEMINI_API_KEY` | Gemini model access | one of the two keys |
 | `CHAT_PASSWORD` | Access gate (default `0404`) | ✅ change on public |
@@ -90,6 +105,7 @@ Plus the **Konami code** and tapping the logo… we won't spoil everything. 🔍
 - **Single file** — the entire frontend, backend, KV logic and scheduling live in one `worker.js`; no bundler, no dependencies at runtime.
 - **Free-first** — only free model tiers and free services (Pollinations, DuckDuckGo) are wired in; paid features are intentionally excluded.
 - **Memory pipeline** — conversations → memory events → user memory documents → nightly "Dreaming" consolidation into a global personality document for CDY.
+- **Layered storage** — community data prefers D1 + R2 + Durable Objects; KV is the automatic fallback, so missing bindings never break the app.
 - **Security basics** — salted password hashes (SHA-256), HttpOnly cookies, rate limiting, image validation, per-session ownership checks.
 
 ---
