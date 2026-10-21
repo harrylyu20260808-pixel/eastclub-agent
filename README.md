@@ -1,14 +1,27 @@
 # EastClub Agent 🧠
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-try%20it%20now-10B981)](https://cdy.harrylv20260808.workers.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Cloudflare%20Workers-orange)](#deploy)
 [![Version](https://img.shields.io/badge/version-v1.6.2-8A2BE2)](#changelog)
 [![Free](https://img.shields.io/badge/powered%20by-GLM%20%2B%20Gemini%20%28free%29-green)](#ai-models)
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/harrylyu20260808-pixel/eastclub-agent)
 
-> **A single-file AI companion that runs entirely on Cloudflare Workers — zero build, zero server, deploy in minutes.**
+> **An AI companion who *chats*, *remembers* and *dreams* — running entirely on a single, free Cloudflare Worker.** No server, no build, no database setup. Just one file.
 
-EastClub Agent is a self-contained Web application packed into **one `worker.js`**. It gives you a password-protected chat with a **persona-driven agent (CDY)** who has his own personality, memory and daily "dreams" — plus image generation, a community of numbered accounts, a chatroom, polls, an admin panel, **LaTeX math rendering**, multiple visual themes and a treasure trove of easter eggs. Everything uses **free AI tiers**, so it costs nothing to run.
+EastClub Agent packs a whole web app into **one `worker.js`**: a persona-driven agent (**CDY**) with his own personality, persistent memory and nightly "dreams", plus image generation, a community of numbered accounts, a chatroom, polls, an admin panel, LaTeX math rendering, multiple themes and a vault of easter eggs — all powered by **free AI tiers**, so it costs $0 to run.
+
+---
+
+## 🚀 Live Demo
+
+**Try it right now — no install needed:**
+
+> **👉 [cdy.harrylv20260808.workers.dev](https://cdy.harrylv20260808.workers.dev)**
+
+1. Enter the access password and step inside.
+2. Chat with **CDY**, generate an image, or explore the community.
+3. Tip: the demo runs on shared free keys — deploy your own in minutes for a private instance (one click below).
 
 ---
 
@@ -107,6 +120,12 @@ Plus the **Konami code** and tapping the logo… we won't spoil everything. 🔍
 - **Memory pipeline** — conversations → memory events → user memory documents → nightly "Dreaming" consolidation into a global personality document for CDY.
 - **Layered storage** — community data prefers D1 + R2 + Durable Objects; KV is the automatic fallback, so missing bindings never break the app.
 - **Security basics** — salted password hashes (SHA-256), HttpOnly cookies, rate limiting, image validation, per-session ownership checks.
+
+---
+
+## 🤝 Contributing
+
+Bug reports, feature ideas and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 
