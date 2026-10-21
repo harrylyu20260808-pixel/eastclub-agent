@@ -1,0 +1,38 @@
+name: Bug report
+about: Create a report to help us improve
+labels: bug
+title: "[Bug] "
+
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Deployed Cloudflare Worker or local serve? Which bindings did you configure?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: What did you do? What URL/page?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Paste any console errors.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots, log output, model used, etc.
